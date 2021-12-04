@@ -25,14 +25,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocityJump;
 
     [Header("Box")]
-    private int _tools;
-    //[SerializeField] private BoxController box;
+    [SerializeField] private ToolsManager tools;
 
     void Start()
     {
+
         controller = GetComponent<CharacterController>();
         playerAnimator = GetComponent<Animator>();
-        _tools = 0;
     }
 
     void Update()
@@ -49,15 +48,17 @@ public class PlayerController : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 _direction = new Vector3(-x, 0f, -z).normalized;
+        Vector3 _moveDirection = new Vector3(-x, 0f, -z).normalized;
 
-        if(_direction.magnitude >= 0.1f)
+
+        if (_moveDirection.magnitude >= 0.1f)
         {
-            float targetAngle = Mathf.Atan2(_direction.x, _direction.z) * Mathf.Rad2Deg;
+            // Ubah Arah karakter jika di kontrol lewat keyboard
+            float targetAngle = Mathf.Atan2(_moveDirection.x, _moveDirection.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref smothingVelocityTurn, smothingTurn);
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-            controller.Move(_direction * runSpeed * Time.deltaTime);
+            controller.Move(_moveDirection * runSpeed * Time.deltaTime);
             isRunning = true;
         }
     }
@@ -87,33 +88,12 @@ public class PlayerController : MonoBehaviour
         else
             playerAnimator.SetBool("Walking", false);
 
-        switch (_tools)
-        {
-            case 0:
-                if (Input.GetKey(KeyCode.LeftShift) && isRunning == false)
-                {
-                    playerAnimator.SetTrigger("Pickup");
-                    playerAnimator.ResetTrigger("Dropoff");
-                    _tools = 1;
-                }
-                break;
-            case 1:
-                if (Input.GetKey(KeyCode.LeftShift) && isRunning == false)
-                {
-                    playerAnimator.SetTrigger("Dropoff");
-                    playerAnimator.ResetTrigger("Pickup");
-                    _tools = 0;
-                }
-                break;
 
-            default:
-                Debug.Log("Test");
-                break;
-        }
     }
 
     public bool _isRunning { get { return isRunning; } }
     public bool _isGrounded { get { return isGrounded;  } }
+
 
     public Animator _playerAnimator { get { return playerAnimator; } set { playerAnimator = value; } }
 }
