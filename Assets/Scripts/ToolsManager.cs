@@ -52,6 +52,7 @@ public class ToolsManager : MonoBehaviour
                 if (isAbleToGrab && Input.GetKeyDown(KeyCode.G))
                 {
                     this.GetComponent<Rigidbody>().isKinematic = true;
+                    this.GetComponent<Collider>().enabled = false;
                     this.transform.position = holdingPos.position;
                     this.transform.parent = holdingPos.transform;
                     player._playerAnimator.SetTrigger("Pickup");
@@ -66,10 +67,12 @@ public class ToolsManager : MonoBehaviour
 
     private void DropTools()
     {
-        if (isCarried && Input.GetKeyDown(KeyCode.G))
+        if (isCarried && Input.GetKeyDown(KeyCode.G) && !isRunning)
         {
             this.GetComponent<Rigidbody>().isKinematic = false;
             this.transform.parent = null;
+            this.GetComponent<Collider>().enabled = true;
+
             player._playerAnimator.SetTrigger("Dropoff");
             player._playerAnimator.ResetTrigger("Pickup");
             isCarried = false;

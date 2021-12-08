@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7250250617396910030}
   m_Layer: 0
   m_Name: Kuas
-  m_TagString: Tools
+  m_TagString: Kuas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,8 +129,3 @@ MonoBehaviour:
   holdingPos: {fileID: 0}
   player: {fileID: 0}
   distanceToPlayer: 0
-  tools:
-  - {fileID: 6770395093773089818}
-  - {fileID: 6292259295120447909, guid: f926ba5e09aec2b4db2390aeb3195791, type: 3}
-  - {fileID: 7512296102980781401, guid: bddf4277fe9fe584d9322f5cda9afc5f, type: 3}
-  - {fileID: 6102524063377982823, guid: 112d56d1982e6324182df072637ff405, type: 3}

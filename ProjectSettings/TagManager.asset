@@ -4,7 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Tools
+  - Roller
+  - Bak
+  - Kaleng
+  - Kuas
+  - Undefined
   layers:
   - Default
   - TransparentFX
